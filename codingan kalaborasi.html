@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShoeStore - Trendy & Stylish</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root{
+    --primary:#111;
+    --secondary:#f5f5f5;
+    --accent:#ff4d4d;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:var(--secondary);
+}
+
+header{
+    background:white;
+    position:fixed;
+    width:100%;
+    top:0;
+    box-shadow:0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index:1000;
+}
+
+.visitor-banner{
+    margin-top:80px;
+    background:var(--accent);
+    color:white;
+    text-align:center;
+    padding:1rem;
+    font-weight:700;
+}
+
+.visitor-banner span{
+    display:inline-block;
+    margin-left:0.5rem;
+    font-size:1rem;
+}
+
+nav{
+    max-width:1200px;
+    margin:auto;
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:bold;
+    text-decoration:none;
+    color:black;
+}
+
+.logo span{
+    color:var(--accent);
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:2rem;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:black;
+    font-weight:600;
+}
+
+.cart-btn{
+    position:relative;
+    cursor:pointer;
+    font-size:1.3rem;
+}
+
+.cart-count{
+    position:absolute;
+    top:-8px;
+    right:-10px;
+    background:var(--accent);
+    color:white;
+    font-size:0.7rem;
+    padding:2px 6px;
+    border-radius:50%;
+}
+
+#home{
+    height:80vh;
+    background: url('/Toko Sepatu.jpeg');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+    margin-top:60px;
+}
+
+.hero-content h1{
+    font-size:3rem;
+}
+
+.btn{
+    padding:12px 30px;
+    background:#ff4d4d;
+    color:white;
+    border:none;
+    border-radius:25px;
+    text-decoration:none;
+    display:inline-block;
+    margin-top:40px;
+}
+
+section{
+    max-width:1200px;
+    margin:4rem auto;
+    padding:0 2rem;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2.5rem;
+    margin-bottom:3rem;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:2rem;
+}
+
+.product-card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-10px);
+}
+
+.product-img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+.product-info{
+    padding:1rem;
+    text-align:center;
+}
+
+.product-price{
+    color:var(--accent);
+    font-weight:bold;
+    display:block;
+    margin:10px 0;
+}
+
+.product-rating{
+    display:block;
+    color:#f5a623;
+    font-weight:700;
+    margin-bottom:0.5rem;
+}
+
+.star-icons{
+    display:inline-flex;
+    gap:0.1rem;
+    margin-right:0.35rem;
+}
+
+.review-btn{
+    margin-top:1rem;
+    padding:10px 18px;
+    border:none;
+    background:var(--accent);
+    color:white;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.review-list{
+    margin-top:1rem;
+    text-align:left;
+}
+
+.review-item{
+    background:#fafafa;
+    border:1px solid #eee;
+    border-radius:12px;
+    padding:0.85rem;
+    margin-bottom:0.85rem;
+}
+
+.review-item strong{
+    display:block;
+    margin-bottom:0.35rem;
+}
+
+.review-item small{
+    color:#666;
+}
+
+.review-form input,
+.review-form textarea{
+    width:100%;
+    padding:0.85rem;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-bottom:0.85rem;
+    font-size:0.95rem;
+}
+
+.review-form textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.product-desc{
+    font-size:0.85rem;
+    color:#666;
+    margin:10px 0;
+    line-height:1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-label{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:12px;
+    font-size:0.8rem;
+    font-weight:700;
+    margin-bottom:0.75rem;
+}
+
+.product-label.male{
+    background:#e8f4ff;
+    color:#1a5cb0;
+}
+
+.product-label.female{
+    background:#ffe8f1;
+    color:#b01a5c;
+}
+
+.filter-buttons{
+    display:flex;
+    justify-content:center;
+    gap:0.75rem;
+    flex-wrap:wrap;
+    margin-bottom:2rem;
+}
+
+.filter-btn{
+    padding:10px 18px;
+    border:1px solid #ddd;
+    background:white;
+    color:#111;
+    border-radius:999px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:white;
+}
+
+.size-selector{
+    margin:10px 0;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:5px;
+}
+
+.size-btn{
+    padding:8px 12px;
+    border:2px solid #ddd;
+    background:#f8f8f8;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:0.9rem;
+    transition:0.3s;
+    min-width:35px;
+}
+
+.size-btn.active,
+.size-btn:hover{
+    background:var(--accent);
+    color:white;
+    border-color:var(--accent);
+}
+
+.add-btn{
+    width:100%;
+    padding:12px;
+    background:black;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.add-btn:disabled{
+    background:#ccc;
+    cursor:not-allowed;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+.modal-content{
+    background:white;
+    padding:2rem;
+    border-radius:15px;
+    width:90%;
+    max-width:500px;
+    max-height:80vh;
+    overflow-y:auto;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-item:last-child{
+    border-bottom:none;
+}
+
+.remove-btn{
+    background:var(--accent);
+    color:white;
+    border:none;
+    padding:5px 10px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:0.8rem;
+}
+
+.checkout-btn{
+    width:100%;
+    padding:12px;
+    background:var(--accent);
+    color:white;
+    border:none;
+    border-radius:8px;
+    margin-top:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.payment-section{
+    margin-top:1.5rem;
+    padding:1rem;
+    background:#f8f8f8;
+    border-radius:12px;
+}
+
+.payment-section h3{
+    margin-bottom:0.75rem;
+    font-size:1.1rem;
+}
+
+.payment-section select,
+.payment-section .input-field{
+    width:100%;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    margin-bottom:0.75rem;
+}
+
+.payment-section p{
+    font-size:0.95rem;
+    color:#333;
+}
+
+.sales-section{
+    background:white;
+    padding:2rem;
+    border-radius:15px;
+    margin:2rem auto;
+    max-width:1200px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.sales-section h2{
+    margin-bottom:1rem;
+}
+
+.sales-grid{
+    display:grid;
+    gap:1rem;
+}
+
+.sales-card{
+    padding:1rem;
+    border:1px solid #eee;
+    border-radius:15px;
+    background:#fdfdfd;
+}
+
+.sales-card h3{
+    margin-bottom:0.75rem;
+    font-size:1rem;
+}
+
+.sales-bar-wrapper{
+    background:#f0f0f0;
+    border-radius:999px;
+    overflow:hidden;
+    height:18px;
+}
+
+.sales-bar{
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--accent), #ff9a6c);
+}
+
+.sales-value{
+    margin-top:0.5rem;
+    font-size:0.9rem;
+    color:#444;
+}
+
+footer{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:2rem;
+}
+
+.social-icons{
+    display:flex;
+    justify-content:center;
+    gap:2rem;
+    margin:1.5rem 0;
+    font-size:2rem;
+}
+
+.social-icons a{
+    color:var(--accent);
+    text-decoration:none;
+    transition:0.3s;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#f5f5f5;
+}
+
+.social-icons a:hover{
+    background:var(--accent);
+    color:white;
+    transform:scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<a href="#beranda" class="logo">Toko<span>Sepatuku</span></a>
+<ul class="nav-links">
+<li><a href="#beranda">Beranda</a></li>
+<li><a href="#menu">Produk</a></li>
+<li><a href="#menu" onclick="filterMenu('male')">Pria</a></li>
+<li><a href="#menu" onclick="filterMenu('female')">Wanita</a></li>
+<li><a href="#kontak">Kontak</a></li>
+</ul>
+<div class="cart-btn" onclick="toggleCart()">
+<i class="fas fa-shopping-cart"></i>
+<span class="cart-count" id="cart-count">0</span>
+</div>
+</nav>
+</header>
+
+<div class="visitor-banner">
+    TOTAL PENGUNJUNG WEBSITE: <span id="visitor-count">Menghitung pengunjung...</span>
+</div>
+
+<section id="home">
+<div class="hero-content">
+<h1>selamat Datang di Toko Sepatuku</h1>
+<p>Temukan sepatu favoritmu dengan kualitas terbaik.</p>
+<a href="#menu" class="btn">Belanja Sekarang</a>
+</div>
+</section>
+
+<section id="menu">
+<h2 class="section-title">Koleksi Sepatu</h2>
+<div class="filter-buttons">
+    <button type="button" class="filter-btn active" data-filter="all" onclick="filterMenu('all')">Semua</button>
+    <button type="button" class="filter-btn" data-filter="male" onclick="filterMenu('male')">Pria</button>
+    <button type="button" class="filter-btn" data-filter="female" onclick="filterMenu('female')">Wanita</button>
+</div>
+<div class="menu-grid" id="menu-container"></div>
+</section>
+
+<section id="penjualan" class="sales-section">
+    <h2 class="section-title">Diagram Penjualan Produk</h2>
+    <p style="margin-bottom:1.5rem; color:#666;">Semua produk memiliki angka penjualan di atas 50 dan setiap produk ditampilkan dengan nilai berbeda.</p>
+    <div id="sales-chart" class="sales-grid"></div>
+</section>
+<section id="kontak">
+        <h2>Hubungi Kami</h2>
+        <p>Ada pertanyaan? Hubungi kami melalui nomor telepon di bawah ini:</p>
+        <div class="social-icons">
+            <a href="tel:+6281249243066" title="Telepon Langsung"><i class="fas fa-phone"></i></a>
+            <a href="https://www.instagram.com/tokosepatuku1?igsh=MTN0N3NqODJjdXpxZg==" target="_blank" title="Instagram Toko Sepatuku"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@tokosepatuku1" target="_blank" title="TikTok Toko Sepatuku"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p style="margin-top: 15px; font-weight: bold; font-size: 1.2rem; color: var(--accent);">+62 812-4924-3066</p>
+        <p style="margin-top: 10px; font-size: 0.95rem; color: #333;">Alamat Toko: Jl.PB Sudirman No.40 Teko'an,Tanggul 
+            kulon
+        </p>
+        <p style="margin-top: 25px; font-size: 0.8rem; color: #666;">&copy; 2026 Toko Sepatuku. All Rights Reserved.</p>
+    </section>
+
+<!-- CART -->
+<div id="cart-modal" class="modal">
+<div class="modal-content">
+<h2>Keranjang Belanja</h2>
+<div id="cart-items"></div>
+<p><strong>Total: Rp <span id="cart-total">0</span></strong></p>
+<p><strong>Total Penjualan: <span id="total-sales">0</span> item</strong></p>
+<div class="payment-section">
+    <h3>Nama Pembeli</h3>
+    <input id="customer-name" class="input-field" type="text" placeholder="Masukkan nama Anda">
+    <h3>Alamat Pengirim</h3>
+    <input id="sender-address" class="input-field" type="text" placeholder="Masukkan alamat pengirim">
+    <h3>Pilih Metode Pembayaran</h3>
+    <select id="payment-method" onchange="updatePaymentInfo()">
+        <option value="transfer">Transfer Bank</option>
+        <option value="ovo">OVO</option>
+        <option value="gopay">GoPay</option>
+        <option value="dana">Dana</option>
+    </select>
+    <p id="payment-info">Transfer ke BCA 0812-4924-3066 a.n. StepStyle.</p>
+</div>
+<button type="button" class="checkout-btn" onclick="checkout()">Checkout</button>
+</div>
+</div>
+
+<!-- DESKRIPSI POPUP -->
+<div id="desc-modal" class="modal">
+<div class="modal-content">
+<h2 id="desc-title"></h2>
+<img id="desc-img" style="width:100%; border-radius:10px;">
+<p id="desc-text"></p>
+<div id="review-list" class="review-list"></div>
+<div class="review-form">
+    <label for="review-rating">Rating</label>
+    <input type="number" id="review-rating" min="0" max="5" step="0.1" placeholder="Masukkan rating 0-5" />
+    <label for="review-text">Ulasan</label>
+    <textarea id="review-text" placeholder="Tuliskan ulasan produk..."></textarea>
+    <button type="button" class="review-btn" onclick="submitReview()">Kirim Ulasan</button>
+</div>
+    <button type="button" class="checkout-btn" onclick="closeDesc()">Tutup</button>
+</div>
+</div>
+
+<footer>
+<p>&copy; 2026 Toko Sepatuku
+</p>
+</footer>
+
+<script>
+const products = [
+{id:1,name:"Nike Air Red",price:800000,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff",gender:"male",
+desc:"Sepatu ringan dan nyaman untuk aktivitas sehari-hari. Dilengkapi teknologi Air cushioning untuk kenyamanan maksimal.",
+material:"Mesh sintetis dan sol karet",
+sold:62},
+
+{id:2,name:"Adidas Ultraboost",price:860000,img:"https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",gender:"female",
+desc:"Teknologi boost empuk dan responsif, cocok olahraga. Memberikan energi kembali setiap langkah dengan upper breathable primeknit.",
+material:"Primeknit dan sol boost",
+sold:75},
+
+{id:3,name:"Converse All Star",price:1100000,img:"https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb",gender:"male",
+desc:"Kanvas kuat dan desain klasik yang tidak lekang oleh waktu. Ikon streetwear dengan kenyamanan ortholite insole.",
+material:"Kanvas katun dan sol karet",
+sold:88},
+
+{id:4,name:"Nike Air Monarch",price:1500000,img:"https://images.unsplash.com/photo-1608231387042-66d1773070a5",gender:"male",
+desc:"Bantalan tebal dan nyaman untuk penggunaan lama. Sepatu training terbaik dengan dukungan arch yang superior.",
+material:"Kulit sintetis dan sol karet",
+sold:54},
+
+{id:5,name:"Zalora",price:1700000,img:"/ZALORA Thread.jpeg",gender:"male",
+desc:"Sepatu casual berkualitas dengan desain modern. Kombinasi kulit sintetis premium dan sol karet anti-slip untuk gaya sehari-hari.",
+material:"Kulit sintetis premium dan sol karet",
+sold:93},
+
+{id:6,name:"Sneker ARCHI",price:1900000,img:"/Sepatu sneker pria ARCHI.jpeg",gender:"male",
+desc:"Sneaker stylish dan kuat, cocok untuk anak muda. Desain futuristik dengan teknologi shock absorption untuk performa optimal.",
+material:"Sintetis breathable dan sol tahan banting",
+sold:68},
+
+{id:7,name:"Vans Old Skool",price:2000000,img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77",gender:"male",
+desc:"Sepatu skate legendaris dengan daya tahan tinggi. Sidestripe ikonik dan konstruksi vulcanized untuk grip maksimal.",
+material:"Kanvas dan suede dengan sol vulcanized",
+sold:81},
+
+{id:8,name:"Jordan 1 High",price:2200000,img:"https://images.unsplash.com/photo-1584735175097-719d848f8449",gender:"female",
+desc:"Sepatu premium dengan desain eksklusif dan kualitas terbaik. Leather premium, Nike Air unit, dan siluet legendaris MJ.",
+material:"Kulit premium dan sol karet",
+sold:57}
+];
+
+products.forEach(product => {
+    product.reviews = [];
+});
+
+const savedSales = JSON.parse(localStorage.getItem('productSales') || '{}');
+if (Object.keys(savedSales).length) {
+    products.forEach(product => {
+        if (savedSales[product.id] != null) {
+            product.sold = savedSales[product.id];
+        }
+    });
+}
+
+let cart = [];
+let selectedSizes = {}; // Track selected size per product
+let currentReviewProductId = null;
+let currentFilter = 'all';
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderMenu();
+    renderSalesChart();
+    renderVisitorCount();
+});
+
+function renderMenu(){
+    const container = document.getElementById("menu-container");
+    const visibleProducts = currentFilter === 'all' ? products : products.filter(p => p.gender === currentFilter);
+    container.innerHTML = visibleProducts.length === 0 ?
+        '<p style="text-align:center; color:#666;">Tidak ada produk untuk kategori ini.</p>' :
+        visibleProducts.map(p => `
+        <div class="product-card" data-product-id="${p.id}">
+            <img src="${p.img}" class="product-img" onclick="showDesc(${p.id})">
+            <div class="product-info">
+                <h3>${p.name}</h3>
+                <span class="product-label ${p.gender}">${p.gender === 'male' ? 'Pria' : 'Wanita'}</span>
+                <span class="product-price">Rp ${p.price.toLocaleString("id-ID")}</span>
+                <div class="product-rating">
+                    <span class="star-icons">${renderStars(getProductRating(p))}</span>
+                    <span>${getProductRating(p).toFixed(1)} / 5</span>
+                    <small>(${p.reviews.length} ulasan)</small>
+                </div>
+                <p class="product-desc">${p.desc}</p>
+                <p style="font-size:0.9rem; color:#333; margin:0.5rem 0;"><strong>Bahan:</strong> ${p.material}</p>
+                <p style="font-size:0.9rem; color:#333; margin:0.5rem 0;"><strong>Total Terjual:</strong> ${p.sold}</p>
+                <div class="size-selector">
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 34, event)">34</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 35, event)">35</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 36, event)">36</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 37, event)">37</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 38, event)">38</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 39, event)">39</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 40, event)">40</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 41, event)">41</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 42, event)">42</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 43, event)">43</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 44, event)">44</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 45, event)">45</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 46, event)">46</button>
+                    <button type="button" class="size-btn" onclick="selectSize(${p.id}, 47, event)">47</button>
+                </div>
+                
+                <button type="button" class="add-btn" id="add-${p.id}" onclick="addToCart(${p.id})" disabled>Pilih Ukuran Dulu</button>
+                <button type="button" class="review-btn" onclick="showDesc(${p.id})">Beri Ulasan</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+function renderStars(rating) {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating - fullStars >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    return '★'.repeat(fullStars) + (halfStar ? '☆' : '') + '☆'.repeat(emptyStars);
+}
+
+function getProductRating(product) {
+    if (!product.reviews || product.reviews.length === 0) return 0;
+    const sum = product.reviews.reduce((total, review) => total + review.rating, 0);
+    return sum / product.reviews.length;
+}
+
+function renderReviewList(product) {
+    const reviewList = document.getElementById('review-list');
+    if (!reviewList) return;
+    if (!product.reviews || product.reviews.length === 0) {
+        reviewList.innerHTML = '<p style="color:#666;">Belum ada ulasan untuk produk ini.</p>';
+        return;
+    }
+    reviewList.innerHTML = product.reviews.map(review => `
+        <div class="review-item">
+            <strong>⭐ ${review.rating.toFixed(1)} / 5</strong>
+            <small>${review.date}</small>
+            <p style="margin-top:0.5rem; color:#333;">${review.text}</p>
+        </div>
+    `).join('');
+}
+
+function submitReview() {
+    const ratingInput = Number(document.getElementById('review-rating').value);
+    const reviewText = document.getElementById('review-text').value.trim();
+    if (!currentReviewProductId) {
+        alert('Pilih produk untuk diulas terlebih dahulu.');
+        return;
+    }
+    if (!(ratingInput >= 0 && ratingInput <= 5)) {
+        alert('Masukkan rating antara 0 hingga 5.');
+        return;
+    }
+    if (!reviewText) {
+        alert('Tulis komentar ulasan terlebih dahulu.');
+        return;
+    }
+
+    const product = products.find(p => p.id === currentReviewProductId);
+    product.reviews.push({
+        rating: ratingInput,
+        text: reviewText,
+        date: new Date().toLocaleDateString('id-ID')
+    });
+
+    renderReviewList(product);
+    renderMenu();
+    document.getElementById('review-rating').value = '';
+    document.getElementById('review-text').value = '';
+    alert('Ulasan berhasil dikirim!');
+}
+
+function filterMenu(gender) {
+    currentFilter = gender;
+    updateFilterButtons();
+    renderMenu();
+}
+
+function updateFilterButtons() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === currentFilter);
+    });
+}
+
+function renderVisitorCount() {
+    const visitorElement = document.getElementById('visitor-count');
+    const count = Number(localStorage.getItem('visitorCount') || '0') + 1;
+    localStorage.setItem('visitorCount', count);
+    visitorElement.innerText = `JUMLAH PENGUNJUNG: ${count}`;
+}
+
+function renderSalesChart() {
+    const chartContainer = document.getElementById('sales-chart');
+    const maxSold = Math.max(...products.map(p => p.sold), 100);
+    chartContainer.innerHTML = products.map(product => {
+        const width = Math.round((product.sold / maxSold) * 100);
+        return `
+            <div class="sales-card">
+                <h3>${product.name}</h3>
+                <div class="sales-bar-wrapper">
+                    <div class="sales-bar" style="width:${width}%;"></div>
+                </div>
+                <p class="sales-value">Penjualan: ${product.sold} unit</p>
+            </div>
+        `;
+    }).join('');
+}
+
+function selectSize(productId, size, event) {
+    // Remove active class from all size buttons for this product
+    const sizeButtons = document.querySelectorAll(`[data-product-id="${productId}"] .size-btn`);
+    sizeButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Add active class to selected size
+    event.target.classList.add('active');
+    
+    // Store selected size
+    selectedSizes[productId] = size;
+    
+    // Enable add to cart button
+    document.getElementById(`add-${productId}`).disabled = false;
+    document.getElementById(`add-${productId}`).textContent = `Tambah ke Keranjang`;
+}
+
+function addToCart(id) {
+    if (!selectedSizes[id]) {
+        alert('Pilih ukuran terlebih dahulu!');
+        return;
+    }
+    
+    const product = products.find(p => p.id === id);
+    const cartItem = {
+        ...product,
+        size: selectedSizes[id],
+        quantity: 1
+    };
+    
+    // Check if item already exists in cart
+    const existingItemIndex = cart.findIndex(item => 
+        item.id === id && item.size === selectedSizes[id]
+    );
+    
+    if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        cart.push(cartItem);
+    }
+    
+    updateCart();
+    alert(`✅ ${product.name} Ukuran ${selectedSizes[id]} ditambahkan ke keranjang!`);
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+function getTotalSales() {
+    return products.reduce((sum, item) => sum + item.sold, 0);
+}
+
+function updateCart() {
+    document.getElementById("cart-count").innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    document.getElementById("cart-total").innerText = total.toLocaleString("id-ID");
+    document.getElementById("total-sales").innerText = getTotalSales();
+
+    document.getElementById("cart-items").innerHTML = cart.length === 0 ? 
+        '<p style="text-align:center; color:#666;">Keranjang kosong</p>' :
+        cart.map((item, index) => `
+            <div class="cart-item">
+                <div>
+                    <strong>${item.name}</strong><br>
+                    <small>Ukuran: ${item.size} | QTY: ${item.quantity}</small>
+                </div>
+                <div>
+                    <strong>Rp ${(item.price * item.quantity).toLocaleString("id-ID")}</strong><br>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">Hapus</button>
+                </div>
+            </div>
+        `).join("");
+}
+
+function showDesc(id) {
+    const p = products.find(x => x.id === id);
+    currentReviewProductId = id;
+    document.getElementById("desc-title").innerText = p.name;
+    document.getElementById("desc-img").src = p.img;
+    document.getElementById("desc-text").innerHTML = `${p.desc}<br><strong>Bahan:</strong> ${p.material}`;
+    document.getElementById("review-rating").value = '';
+    document.getElementById("review-text").value = '';
+    renderReviewList(p);
+    document.getElementById("desc-modal").style.display = "flex";
+}
+
+function closeDesc() {
+    document.getElementById("desc-modal").style.display = "none";
+}
+
+function toggleCart() {
+    const m = document.getElementById("cart-modal");
+    m.style.display = m.style.display === "flex" ? "none" : "flex";
+}
+
+function updatePaymentInfo() {
+    const method = document.getElementById("payment-method").value;
+    const info = document.getElementById("payment-info");
+    switch (method) {
+        case "ovo":
+            info.innerText = "Bayar via OVO ke nomor 0812-4924-3066.";
+            break;
+        case "gopay":
+            info.innerText = "Bayar via GoPay ke nomor 0812-4924-3066.";
+            break;
+        case "dana":
+            info.innerText = "Bayar via Dana ke nomor 0812-4924-3066.";
+            break;
+        default:
+            info.innerText = "Transfer ke BCA 123-456-7890 a.n. StepStyle.";
+            break;
+    }
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Keranjang kosong!');
+        return;
+    }
+    const name = document.getElementById("customer-name").value.trim();
+    if (!name) {
+        alert('Masukkan nama pembeli terlebih dahulu!');
+        return;
+    }
+    const address = document.getElementById("sender-address").value.trim();
+    if (!address) {
+        alert('Masukkan alamat pengirim terlebih dahulu!');
+        return;
+    }
+    const method = document.getElementById("payment-method").value;
+    const methodNames = {
+        transfer: "Transfer Bank",
+        ovo: "OVO",
+        gopay: "GoPay",
+        dana: "Dana"
+    };
+    cart.forEach(item => {
+        const product = products.find(p => p.id === item.id);
+        if (product) product.sold += item.quantity;
+    });
+    saveSalesCounts();
+    renderMenu();
+    renderSalesChart();
+    alert(`✅ Terima kasih, ${name}! Alamat pengirim: ${address}. Metode pembayaran: ${methodNames[method]}. Pesanan akan diproses 👟`);
+    cart = [];
+    updateCart();
+    toggleCart();
+}
+
+function saveSalesCounts() {
+    const sales = products.reduce((acc, product) => {
+        acc[product.id] = product.sold;
+        return acc;
+    }, {});
+    localStorage.setItem('productSales', JSON.stringify(sales));
+}
+
+window.onclick = function(e) {
+    if (e.target.id === "cart-modal") toggleCart();
+    if (e.target.id === "desc-modal") closeDesc();
+}
+</script>
+
+</body>
+</html>
